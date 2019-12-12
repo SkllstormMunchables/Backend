@@ -26,7 +26,7 @@ import com.skillstorm.munchables.Service.RecipeService;
 import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
-@RequestMapping(value = "api/")
+@RequestMapping(value = "api/recipe")
 
 public class RecipeController {
 
@@ -36,7 +36,7 @@ public class RecipeController {
 	private RecipeRepository recipeRepository;
 
 	@Autowired
-	private RecipeService service;
+	private RecipeService recipeService;
 
 	// Get requests
 	@GetMapping
@@ -55,7 +55,7 @@ public class RecipeController {
 	@PostMapping(value = "/recipe", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<Recipe> create(@Valid @RequestBody Recipe recipe) {
-		return new ResponseEntity<Recipe>(service.save(recipe), HttpStatus.CREATED);
+		return new ResponseEntity<Recipe>(recipeService.save(recipe), HttpStatus.CREATED);
 
 	}
 
@@ -63,8 +63,11 @@ public class RecipeController {
 
 	@PutMapping(value = "/recipe/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Recipe> update(@Valid @RequestBody Recipe recipe, @PathVariable int id) {
-		return null;
-
-		// Delete REquest
+		if (!recipeRepository. || recipe.getRecipeId() == 0) {
+			return new ResponseEntity<Recipe>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Recipe>(recipeService.save(recipe), HttpStatus.NO_CONTENT);
 	}
+	
+	
 }
