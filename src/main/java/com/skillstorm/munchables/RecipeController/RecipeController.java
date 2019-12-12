@@ -26,7 +26,7 @@ import com.skillstorm.munchables.Service.RecipeService;
 import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
-@RequestMapping(value = "api/recipe")
+@RequestMapping(value = "api/")
 
 public class RecipeController {
 
@@ -54,10 +54,6 @@ public class RecipeController {
 
 	@PostMapping(value = "/recipe", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-//	@ApiOpertion(value = "Create a new Batch object", nickname = "Create Batch", 
-//		code = 201, response = Recipe.class)
-//	@ApiResponses(value = {@ApiResponse(code = 201, message = "Created"), 
-//			@ApiResponse(code = 400, message = "Invalid Batch")})
 	public ResponseEntity<Recipe> create(@Valid @RequestBody Recipe recipe) {
 		return new ResponseEntity<Recipe>(service.save(recipe), HttpStatus.CREATED);
 
