@@ -1,5 +1,7 @@
 package com.skillstorm.munchables.beans;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Recipe {
@@ -22,9 +28,12 @@ public class Recipe {
 	public String recipeName;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "")
+	@JoinTable(name = "RECIPE_INGREDIENTS", joinColumns = @JoinColumn(name = "RECIPE_ID"), inverseJoinColumns = @JoinColumn(name ="INGREDIENT_ID"))
+	private Set<Ingredients> ingredients;
 	
-	private Ingredients ingredient;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="STEP_ID")
+	private Steps steps;
 	
 	public Recipe() {
 		super();
@@ -46,6 +55,18 @@ public class Recipe {
 	}
 	public void setRecipeName(String recipeName) {
 		this.recipeName = recipeName;
+	}
+	public Set<Ingredients> getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(Set<Ingredients> ingredients) {
+		this.ingredients = ingredients;
+	}
+	public Steps getSteps() {
+		return steps;
+	}
+	public void setSteps(Steps steps) {
+		this.steps = steps;
 	}
 	@Override
 	public String toString() {

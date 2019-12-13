@@ -1,12 +1,19 @@
 package com.skillstorm.munchables.beans;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "INGREDIENTS")
+
 public class Ingredients {
 	
 	@Id
@@ -17,19 +24,27 @@ public class Ingredients {
 	@Column(name="INGREDIENT_NAME")
 	public String name;
 	
-	@Column(name = "RECIPE_ID")
-	public int recipeId;
+	@ManyToMany(mappedBy = "Ingredient")
+	private Set<Recipe> recipe;
+		
+	public Set<Recipe> getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(Set<Recipe> recipe) {
+		this.recipe = recipe;
+	}
 
 	public Ingredients() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ingredients(int ingredientId, String name, int recipeId) {
+	public Ingredients(int ingredientId, String name) {
 		super();
 		this.ingredientId = ingredientId;
 		this.name = name;
-		this.recipeId = recipeId;
+		
 	}
 
 	public int getIngredientId() {
@@ -48,17 +63,10 @@ public class Ingredients {
 		this.name = name;
 	}
 
-	public int getRecipeId() {
-		return recipeId;
-	}
-
-	public void setRecipeId(int recipeId) {
-		this.recipeId = recipeId;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "Ingredients [ingredientId=" + ingredientId + ", name=" + name + ", recipeId=" + recipeId + "]";
+		return "Ingredients [ingredientId=" + ingredientId + ", name=" + name + "]";
 	}
 
 }
