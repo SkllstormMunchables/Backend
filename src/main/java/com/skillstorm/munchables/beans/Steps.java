@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,14 +14,15 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Steps {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "STEP_ID")
 	public int stepId;
 	
 	@Column(name = "STEP")
 	public String step;
 	
-	@Column(name = "RECIPE_ID")
-	public int recipeId;
+////	@Column(name = "RECIPE_ID")
+//	public int recipeId;
 
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -44,7 +47,7 @@ public class Steps {
 		super();
 		this.stepId = stepId;
 		this.step = step;
-		this.recipeId = recipeId;
+//		this.recipeId = recipeId;
 	}
 
 	public int getStepId() {
@@ -63,17 +66,17 @@ public class Steps {
 		this.step = step;
 	}
 
-	public int getRecipeId() {
-		return recipeId;
-	}
-
-	public void setRecipeId(int recipeId) {
-		this.recipeId = recipeId;
-	}
+//	public int getRecipeId() {
+//		return recipeId;
+//	}
+//
+//	public void setRecipeId(int recipeId) {
+//		this.recipeId = recipeId;
+//	}
 
 	@Override
 	public String toString() {
-		return "Steps [stepId=" + stepId + ", step=" + step + ", recipeId=" + recipeId + "]";
+		return "Steps [stepId=" + stepId + ", step=" + step + "]";
 	}
 
 }

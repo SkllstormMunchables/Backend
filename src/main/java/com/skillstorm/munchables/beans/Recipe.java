@@ -15,8 +15,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "RECIPES")
 public class Recipe {
 	
 	@Id
@@ -31,10 +33,12 @@ public class Recipe {
 	@JoinTable(name = "RECIPE_INGREDIENTS", joinColumns = @JoinColumn(name = "RECIPE_ID"), inverseJoinColumns = @JoinColumn(name ="INGREDIENT_ID"))
 	private Set<Ingredients> ingredients;
 	
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="STEP_ID")
-	private Steps steps;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
+	private Set<Steps>steps;
 	
+	public void setSteps(Set<Steps> steps) {
+		this.steps = steps;
+	}
 	public Recipe() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -62,12 +66,7 @@ public class Recipe {
 	public void setIngredients(Set<Ingredients> ingredients) {
 		this.ingredients = ingredients;
 	}
-	public Steps getSteps() {
-		return steps;
-	}
-	public void setSteps(Steps steps) {
-		this.steps = steps;
-	}
+	
 	@Override
 	public String toString() {
 		return "Recipe [recipeId=" + recipeId + ", recipeName=" + recipeName + "]";
