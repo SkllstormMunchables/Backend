@@ -26,7 +26,7 @@ import com.skillstorm.munchables.Service.RecipeService;
 import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
-@RequestMapping(value = "api/recipe")
+@RequestMapping(value = "recipes/")
 
 public class RecipeController {
 

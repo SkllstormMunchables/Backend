@@ -76,22 +76,22 @@ private SessionFactory sessionFactory = new Configuration().configure().buildSes
 	//Find all Recipe, Measurements, Steps, and Ingredients
 	
 	public List<Recipe> findAllRecipe(){
-		return sessionFactory.openSession().createQuery("from Recipe").list();
+		return sessionFactory.openSession().createQuery("from RECIPES").list();
 		
 	}
 	
 	public List<Measurements> findAllIngredients(){
-		return sessionFactory.openSession().createQuery("from Ingredients").list();
+		return sessionFactory.openSession().createQuery("from INGREDIENTS").list();
 		
 	}
 	
 	public List<Measurements> findAllMeasurements(){
-		return sessionFactory.openSession().createQuery("from Measurements").list();
+		return sessionFactory.openSession().createQuery("from MEASUREMENTS").list();
 		
 	}
 	
 	public List<Steps> findAllSteps(){
-		return sessionFactory.openSession().createQuery("from Steps").list();
+		return sessionFactory.openSession().createQuery("from STEPS").list();
 		
 	}
 	

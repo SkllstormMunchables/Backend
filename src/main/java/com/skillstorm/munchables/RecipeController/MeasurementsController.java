@@ -27,7 +27,7 @@ import com.skillstorm.munchables.beans.Measurements;
 import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
-@RequestMapping(value = "api/measurements")
+@RequestMapping(value = "/measurements")
 public class MeasurementsController {
 
 	public static final Logger logger = Logger.getLogger(MeasurementsController.class);
