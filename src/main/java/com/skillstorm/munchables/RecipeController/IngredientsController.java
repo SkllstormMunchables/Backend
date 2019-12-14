@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.munchables.Data.RecipeRepository;
@@ -38,33 +39,21 @@ public class IngredientsController {
 	private RecipeService service;
 
 	// Get requests
-	@GetMapping
-	public ResponseEntity<List<Ingredients>> findAllRecipe() {
-		return new ResponseEntity<List<Ingredients>>(recipeRepository.findAllIngredients(), HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/ingredients/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Ingredients> findByIdRecipe(@PathVariable int id) {
-		return new ResponseEntity<Ingredients>(recipeRepository.findByIdIngredient(id), HttpStatus.OK);
-
-	}
+	
 
 	// Post Request
 
 	@PostMapping(value = "/ingredients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public ResponseEntity<Ingredients> create(@Valid @RequestBody Ingredients ingredient) {
-		return new ResponseEntity<Ingredients>(service.save(ingredient), HttpStatus.CREATED);
-
+	public ResponseEntity<List<Ingredients>> insert(@Valid @RequestBody Ingredients ingredient){
+		return new ResponseEntity<List<Ingredients>>(service.save(ingredient));
 	}
+	
+	
 
 	// Put Request
 
 	@PutMapping(value = "/ingredients/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Ingredients> update(@Valid @RequestBody Ingredients ingredient, @PathVariable int id) {
-		return null;
-
-		// Delete REquest
-	}
+	
 
 }

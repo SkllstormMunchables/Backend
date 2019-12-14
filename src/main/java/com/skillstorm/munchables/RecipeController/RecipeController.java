@@ -63,9 +63,9 @@ public class RecipeController {
 
 	@PutMapping(value = "/recipe/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Recipe> update(@Valid @RequestBody Recipe recipe, @PathVariable int id) {
-		if (!recipeRepository. || recipe.getRecipeId() == 0) {
-			return new ResponseEntity<Recipe>(HttpStatus.BAD_REQUEST);
-		}
+//		if (!recipeRepository.findByIdRecipe(id) || recipe.getRecipeId() == 0) {
+//			return new ResponseEntity<Recipe>(HttpStatus.BAD_REQUEST);
+//		} 
 		return new ResponseEntity<Recipe>(recipeService.save(recipe), HttpStatus.NO_CONTENT);
 	}
 	

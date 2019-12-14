@@ -7,25 +7,94 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.skillstorm.munchables.beans.Ingredients;
 import com.skillstorm.munchables.beans.Measurements;
 import com.skillstorm.munchables.beans.Recipe;
 import com.skillstorm.munchables.beans.Steps;
 
-public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
+public class RecipeRepository {
 
-//Add recipe
-	@Query("insert into RECIPES(RECIPE_NAME) values ?")
-	public Recipe addRecipe();
+private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+//adding Recipes, Ingredients, measurements, and Steps
+		
+	public void insert(Recipe recipe ) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(recipe);
+		tx.commit();
+		session.close();
+	}
 	
-	@Query("select * from RECIPES where RECIPE_ID = ?")
-	public Recipe findById();
+	public void insert(Ingredients ingredient ) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(ingredient);
+		tx.commit();
+		session.close();
+	}
+	
+	public void insert(Steps step ) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(step);
+		tx.commit();
+		session.close();
+	}
+	
+	public void insert(Measurements measurements) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(measurements);
+		tx.commit();
+		session.close();
+	}
+	
+	//Get Recipe and Ingredients Id
+	
+	public Recipe findByIdRecipe(int id) {
+		Session session = sessionFactory.openSession();
+		return (Recipe) session.get(Recipe.class, id);
+	}
+	
+	public Ingredients findByIdIngredient(int id) {
+		Session session = sessionFactory.openSession();
+		return (Ingredients) session.get(Ingredients.class, id);
+	}
+	
+	public Steps findByIdSteps(int id) {
+		Session session = sessionFactory.openSession();
+		return (Steps) session.get(Steps.class, id);
+	}
+	
+	public Measurements findByIdMeasurement(int id) {
+		Session session = sessionFactory.openSession();
+		return (Measurements) session.get(Measurements.class, id);
+	}
+	
+	//Find all Recipe, Measurements, Steps, and Ingredients
+	
+	public List<Recipe> findAllRecipe(){
+		return sessionFactory.openSession().createQuery("from Recipe").list();
+		
+	}
+	
+	public List<Measurements> findAllIngredients(){
+		return sessionFactory.openSession().createQuery("from Ingredients").list();
+		
+	}
+	
+	public List<Measurements> findAllMeasurements(){
+		return sessionFactory.openSession().createQuery("from Measurements").list();
+		
+	}
+	
+	public List<Steps> findAllSteps(){
+		return sessionFactory.openSession().createQuery("from Steps").list();
+		
+	}
+	
 	
 	
 }
-
-	
-
