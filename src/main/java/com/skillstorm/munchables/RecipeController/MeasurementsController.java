@@ -24,6 +24,7 @@ import com.skillstorm.munchables.Data.RecipeRepository;
 import com.skillstorm.munchables.Service.RecipeService;
 import com.skillstorm.munchables.beans.Ingredients;
 import com.skillstorm.munchables.beans.Measurements;
+import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
 @RequestMapping(value = "api/measurements")
@@ -62,7 +63,7 @@ public class MeasurementsController {
 
 		@PutMapping(value = "/measurements/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<Measurements> update(@Valid @RequestBody Measurements measurements, @PathVariable int id) {
-			return null;
+			return new ResponseEntity<Measurements>(service.save(measurements), HttpStatus.NO_CONTENT);
 
 			// Delete REquest
 		}

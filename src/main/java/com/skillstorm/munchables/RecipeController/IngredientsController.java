@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skillstorm.munchables.Data.RecipeRepository;
 import com.skillstorm.munchables.Service.RecipeService;
 import com.skillstorm.munchables.beans.Ingredients;
+import com.skillstorm.munchables.beans.Measurements;
+import com.skillstorm.munchables.beans.Recipe;
 
 
 @RestController
@@ -45,8 +47,9 @@ public class IngredientsController {
 
 	@PostMapping(value = "/ingredients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public ResponseEntity<List<Ingredients>> insert(@Valid @RequestBody Ingredients ingredient){
-		return new ResponseEntity<List<Ingredients>>(service.save(ingredient));
+	public ResponseEntity<Ingredients> create(@Valid @RequestBody Ingredients ingredient) {
+		return new ResponseEntity<Ingredients>(service.save(ingredient), HttpStatus.CREATED);
+
 	}
 	
 	
@@ -54,6 +57,10 @@ public class IngredientsController {
 	// Put Request
 
 	@PutMapping(value = "/ingredients/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	
+	public ResponseEntity<Ingredients> update(@Valid @RequestBody Ingredients ingredient, @PathVariable int id) {
+		return new ResponseEntity<Ingredients>(service.save(ingredient), HttpStatus.NO_CONTENT);
+
+		// Delete REquest
+	}
 
 }
