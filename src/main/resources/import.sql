@@ -78,16 +78,14 @@ INSERT INTO `Ingredients` (`IngredientId`, `IngredientName`) VALUES ('20','seafo
 INSERT INTO `Ingredients` (`IngredientId`, `IngredientName`) VALUES ('21','cajun seasoning');
 INSERT INTO `Ingredients` (`IngredientId`, `IngredientName`) VALUES ('22','oil');
 
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('1','Put cereal into bowl. Add milk');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('2','Preheat oven to 425 degrees F');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('3','Add sauce, dough, cheese, and any toppings you desire to the dough');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('4','Bake in oven for about 15 minutes, or until crust is golden brown');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('5','Preheat oven to 350 degrees F');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('6','Mix all ingredients. Drop large spoonfuls onto ungreased pan');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('7','Bake in oven for about 10 minutes, or until edges are golden brown');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('8','In a bag, mix all ingredients except buttermilk, oil, and pickles');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('9','Add the pickles to a bowl of buttermilk and then put pickles into the bag and shake.');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('10','Heat oil to 350 degrees in a fryer or a frying pan');
-INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('11','Fry pickles for 1-2 minutes or until golden brown on each side');
-
-select * from Recipe;
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Put cereal into bowl. Add milk','1');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Preheat oven to 425 degrees F','2');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Add sauce, dough, cheese, and any toppings you desire to the dough','3');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Bake in oven for about 15 minutes, or until crust is golden brown','4');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Preheat oven to 350 degrees F','5');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Mix all ingredients. Drop large spoonfuls onto ungreased pan','6');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Bake in oven for about 10 minutes, or until edges are golden brown','7');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('In a bag, mix all ingredients except buttermilk, oil, and pickles','8');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Add the pickles to a bowl of buttermilk and then put pickles into the bag and shake.','9');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Heat oil to 350 degrees in a fryer or a frying pan', '10');
+INSERT INTO `Steps` (`Step`, `RecipeId`) VALUES ('Fry pickles for 1-2 minutes or until golden brown on each side','11');

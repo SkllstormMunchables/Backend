@@ -26,7 +26,7 @@ import com.skillstorm.munchables.Service.RecipeService;
 import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
-@RequestMapping(value = "recipes/")
+@RequestMapping(value = "/recipes")
 
 public class RecipeController {
 
@@ -39,7 +39,7 @@ public class RecipeController {
 	private RecipeService recipeService;
 
 	// Get requests
-	@GetMapping
+	@GetMapping(value = "/recipe", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recipe>> findAllRecipe() {
 		return new ResponseEntity<List<Recipe>>(recipeRepository.findAllRecipe(), HttpStatus.OK);
 	}
