@@ -2,6 +2,7 @@ package com.skillstorm.munchables.beans;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,31 +18,49 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-@Table(name = "RECIPES")
+@Table(name = "Recipe")
 public class Recipe {
 	
 	@Id
-	@Column(name = "RECIPE_ID")
+	@Column(name = "RecipeId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	public int recipeId;
 	
-	@Column(name = "RECIPE_NAME")
+	@Column(name = "RecipeName")
 	public String recipeName;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "RECIPE_INGREDIENTS", joinColumns = @JoinColumn(name = "RECIPE_ID"), inverseJoinColumns = @JoinColumn(name ="INGREDIENT_ID"))
+	@ManyToMany(fetch = FetchType.LAZY)// cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "RecipeIngredients", 
+        joinColumns = { @JoinColumn(name = "RecipeId") }, 
+        inverseJoinColumns = { @JoinColumn(name = "IngredientId") })
+	@JsonManagedReference(value = "recipeJoin")
 	private Set<Ingredients> ingredients;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "recipe")
+	@OneToMany(mappedBy = "recipe")
+	@JsonManagedReference(value = "recipeSteps")
 	private Set<Steps>steps;
 	
+	public Set<Ingredients> getIngredients() {
+		return ingredients;
+	}
+	
+	public Set<Steps> getSteps() {
+		return steps;
+	}
+
+	public void setIngredients(Set<Ingredients> ingredients) {
+		this.ingredients = ingredients;
+	}
 	public void setSteps(Set<Steps> steps) {
 		this.steps = steps;
 	}
 	public Recipe() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Recipe(int recipeId, String recipeName) {
 		super();
@@ -59,12 +78,6 @@ public class Recipe {
 	}
 	public void setRecipeName(String recipeName) {
 		this.recipeName = recipeName;
-	}
-	public Set<Ingredients> getIngredients() {
-		return ingredients;
-	}
-	public void setIngredients(Set<Ingredients> ingredients) {
-		this.ingredients = ingredients;
 	}
 	
 	@Override

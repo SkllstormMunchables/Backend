@@ -23,7 +23,7 @@ import com.skillstorm.munchables.Service.RecipeService;
 import com.skillstorm.munchables.beans.Steps;
 
 @RestController
-@RequestMapping(value = "api/steps")
+@RequestMapping(value = "/steps")
 public class StepsController {
 
 	
@@ -34,7 +34,7 @@ public class StepsController {
 	private RecipeService service;
 
 	// get requests
-	@GetMapping
+	@GetMapping(value = "/stepsall", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Steps>> findAllSteps() {
 		return new ResponseEntity<List<Steps>>(recipeRepository.findAllSteps(), HttpStatus.OK);
 	}

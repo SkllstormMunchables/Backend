@@ -7,12 +7,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
 
 import com.skillstorm.munchables.beans.Ingredients;
 import com.skillstorm.munchables.beans.Measurements;
 import com.skillstorm.munchables.beans.Recipe;
 import com.skillstorm.munchables.beans.Steps;
 
+@Repository
 public class RecipeRepository {
 
 private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -76,11 +78,12 @@ private SessionFactory sessionFactory = new Configuration().configure().buildSes
 	//Find all Recipe, Measurements, Steps, and Ingredients
 	
 	public List<Recipe> findAllRecipe(){
+		System.out.println("RecipeRepository: findAllRecipe");
 		return sessionFactory.openSession().createQuery("from Recipe").list();
 		
 	}
 	
-	public List<Measurements> findAllIngredients(){
+	public List<Ingredients> findAllIngredients(){		
 		return sessionFactory.openSession().createQuery("from Ingredients").list();
 		
 	}

@@ -10,23 +10,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
+@Table(name= "Steps")
 public class Steps {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "STEP_ID")
+	@Column(name = "StepId")
 	public int stepId;
 	
-	@Column(name = "STEP")
+	@Column(name = "step")
 	public String step;
 	
-////	@Column(name = "RECIPE_ID")
+//	@Column(name = "RECIPE_ID")
 //	public int recipeId;
-
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "RECIPE_ID")
+	@JoinColumn(name = "RecipeId")
+	@JsonBackReference(value = "recipeSteps")
 	private Recipe recipe;
 	
 	
@@ -50,11 +54,11 @@ public class Steps {
 //		this.recipeId = recipeId;
 	}
 
-	public int getStepId() {
+	public int getRecipeId() {
 		return stepId;
 	}
 
-	public void setStepId(int stepId) {
+	public void setRecipeId(int stepId) {
 		this.stepId = stepId;
 	}
 

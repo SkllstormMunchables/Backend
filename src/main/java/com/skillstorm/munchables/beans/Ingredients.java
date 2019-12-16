@@ -4,27 +4,32 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "INGREDIENTS")
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+@Entity
+@Table(name = "Ingredients")
 public class Ingredients {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "INGREDIENT_ID")
+	@Column(name = "IngredientId")
 	public int ingredientId;
 	
-	@Column(name="INGREDIENT_NAME")
+	@Column(name="IngredientName")
 	public String name;
 	
 	@ManyToMany(mappedBy = "ingredients")
+	@JsonBackReference(value = "ingredientsJoin")
 	private Set<Recipe> recipe;
 		
 	public Set<Recipe> getRecipe() {
@@ -37,11 +42,9 @@ public class Ingredients {
 
 	public Ingredients() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Ingredients(int ingredientId, String name) {
-		super();
 		this.ingredientId = ingredientId;
 		this.name = name;
 		
@@ -63,7 +66,6 @@ public class Ingredients {
 		this.name = name;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Ingredients [ingredientId=" + ingredientId + ", name=" + name + "]";

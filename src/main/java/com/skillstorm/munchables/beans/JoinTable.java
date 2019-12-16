@@ -1,23 +1,78 @@
 package com.skillstorm.munchables.beans;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+
+//@Embeddable
+//@Entity
+//@Table(name = "RecipeIngredients")
 public class JoinTable {
 	
-	@Id
-	@Column(name = "RECIPE ID")
+	@EmbeddedId
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name = "JoinTableId")
+	private int joinTableId;
+	
+	
+	//@Column(name = "RecipeId")
 	private int RecipeId;
 	
-	@Column(name = "INGREDIENT ID")
+	
+	//@Column(name = "IngredientId")
 	private int IngredientId;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "RecipeId")
+	@JsonBackReference(value = "recipeJoin")
+	private Recipe recipe;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "IngredientId")
+	@JsonBackReference(value = "ingredientsJoin")
+	private Ingredients ingredients;
+	
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
+	}
+
+	public Ingredients getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Ingredients ingredients) {
+		this.ingredients = ingredients;
+	}
+
 	public JoinTable() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public int getJoinTableId() {
+		return joinTableId;
+	}
+
+	public void setJoinTableId(int joinTableId) {
+		this.joinTableId = joinTableId;
+	}
+	
 	public JoinTable(int recipeId, int ingredientId) {
 		super();
 		RecipeId = recipeId;
