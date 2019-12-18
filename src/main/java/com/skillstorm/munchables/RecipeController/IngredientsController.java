@@ -41,17 +41,21 @@ public class IngredientsController {
 	private RecipeService service;
 
 	// Get requests
-	
+	@GetMapping
+	public ResponseEntity<List<Ingredients>> findAllRecipe() {
+		return new ResponseEntity<List<Ingredients>>(recipeRepository.findAllIngredients(), HttpStatus.OK);
+	}
 
 	// Post Request
 
 	@PostMapping(value = "/ingredients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public ResponseEntity<Ingredients> create(@Valid @RequestBody Ingredients ingredient) {
-		return new ResponseEntity<Ingredients>(service.save(ingredient), HttpStatus.CREATED);
-
+	public ResponseEntity<Ingredients> save(@Valid @RequestBody Ingredients ingredient) {
+		ResponseEntity<Ingredient> response = 
+				new ResponseEntity<Ingredient>(recipeRepository.(artist), HttpStatus.CREATED); 
+		// HttpStatus.CREATED === 201 
+		return response;
 	}
-	
 	
 
 	// Put Request
