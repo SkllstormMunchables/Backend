@@ -94,7 +94,7 @@ private SessionFactory sessionFactory = new Configuration().configure().buildSes
 	}
 	
 	public List<Steps> findAllSteps(){
-		return sessionFactory.openSession().createQuery("from Steps").list();
+		return sessionFactory.openSession().createQuery("select s from Steps s inner join s.recipe").list();
 		
 	}
 	

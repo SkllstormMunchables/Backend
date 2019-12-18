@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name= "Steps")
 public class Steps {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "StepId")
@@ -25,14 +25,10 @@ public class Steps {
 	@Column(name = "step")
 	public String step;
 	
-//	@Column(name = "RECIPE_ID")
-//	public int recipeId;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "RecipeId")
+	@ManyToOne
+	@JoinColumn(name = "RecipeId", insertable = false, updatable = false)
 	@JsonBackReference(value = "recipeSteps")
 	private Recipe recipe;
-	
 	
 	public Recipe getRecipe() {
 		return recipe;
@@ -44,22 +40,20 @@ public class Steps {
 
 	public Steps() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Steps(int stepId, String step, int recipeId) {
+	public Steps(int stepId, String step) {
 		super();
 		this.stepId = stepId;
 		this.step = step;
-//		this.recipeId = recipeId;
 	}
 
 	public int getRecipeId() {
-		return stepId;
+		return recipe.getRecipeId();
 	}
 
-	public void setRecipeId(int stepId) {
-		this.stepId = stepId;
+	public void setRecipeId(int recipeId) {
+		recipe.setRecipeId(recipeId);
 	}
 
 	public String getStep() {
@@ -69,14 +63,6 @@ public class Steps {
 	public void setStep(String step) {
 		this.step = step;
 	}
-
-//	public int getRecipeId() {
-//		return recipeId;
-//	}
-//
-//	public void setRecipeId(int recipeId) {
-//		this.recipeId = recipeId;
-//	}
 
 	@Override
 	public String toString() {

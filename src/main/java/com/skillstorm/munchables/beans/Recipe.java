@@ -2,7 +2,6 @@ package com.skillstorm.munchables.beans;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,15 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -33,7 +28,7 @@ public class Recipe {
 	@Column(name = "RecipeName")
 	public String recipeName;
 
-	@ManyToMany(fetch = FetchType.LAZY)// cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "RecipeIngredients", 
         joinColumns = { @JoinColumn(name = "RecipeId") }, 
@@ -45,23 +40,24 @@ public class Recipe {
 	@JsonManagedReference(value = "recipeSteps")
 	private Set<Steps>steps;
 	
+	public Recipe() {
+		super();
+	}
 	public Set<Ingredients> getIngredients() {
 		return ingredients;
 	}
 	
+	public void setIngredients(Set<Ingredients> ingredients) {
+		this.ingredients = ingredients;
+	}
 	public Set<Steps> getSteps() {
 		return steps;
 	}
 
-	public void setIngredients(Set<Ingredients> ingredients) {
-		this.ingredients = ingredients;
-	}
 	public void setSteps(Set<Steps> steps) {
 		this.steps = steps;
 	}
-	public Recipe() {
-		super();
-	}
+	
 	public Recipe(int recipeId, String recipeName) {
 		super();
 		this.recipeId = recipeId;

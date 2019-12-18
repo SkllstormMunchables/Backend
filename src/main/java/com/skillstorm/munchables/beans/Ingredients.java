@@ -29,6 +29,7 @@ public class Ingredients {
 	public String name;
 	
 	@ManyToMany(mappedBy = "ingredients")
+	// Added this
 	@JsonBackReference(value = "ingredientsJoin")
 	private Set<Recipe> recipe;
 		
