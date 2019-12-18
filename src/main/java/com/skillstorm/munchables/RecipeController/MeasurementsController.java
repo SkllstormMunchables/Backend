@@ -34,7 +34,7 @@ public class MeasurementsController {
 	private RecipeService service;
 
 	// get requests
-	@GetMapping
+	@GetMapping(value = "measurements")
 	public ResponseEntity<List<Measurements>> findAllRecipe() {
 		return new ResponseEntity<List<Measurements>>(recipeRepository.findAllMeasurements(), HttpStatus.OK);
 	}

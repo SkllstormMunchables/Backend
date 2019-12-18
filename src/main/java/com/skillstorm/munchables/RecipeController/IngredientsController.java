@@ -1,4 +1,6 @@
 package com.skillstorm.munchables.RecipeController;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,7 +36,7 @@ public class IngredientsController {
 	private RecipeService service;
 
 	// Get requests
-	@GetMapping
+	@GetMapping(value = "/ingredientsall")
 	public ResponseEntity<List<Ingredients>> findAllRecipe() {
 		return new ResponseEntity<List<Ingredients>>(recipeRepository.findAllIngredients(), HttpStatus.OK);
 	}
