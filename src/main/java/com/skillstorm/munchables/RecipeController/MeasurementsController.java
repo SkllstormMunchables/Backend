@@ -2,7 +2,6 @@ package com.skillstorm.munchables.RecipeController;
 
 import java.util.List;
 
-import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.munchables.Data.RecipeRepository;
 import com.skillstorm.munchables.Service.RecipeService;
-import com.skillstorm.munchables.beans.Ingredients;
 import com.skillstorm.munchables.beans.Measurements;
-import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
 @RequestMapping(value = "api/measurements")
@@ -53,7 +48,7 @@ public class MeasurementsController {
 	// Post Request
 
 		@PostMapping(value = "/measurements", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-		@Transactional(propagation = Propagation.REQUIRES_NEW)
+		//@Transactional(propagation = Propagation.REQUIRES_NEW)
 		public ResponseEntity<Measurements> create(@Valid @RequestBody Measurements measurements) {
 			return new ResponseEntity<Measurements>(service.save(measurements), HttpStatus.CREATED);
 

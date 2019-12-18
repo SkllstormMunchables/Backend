@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +24,7 @@ import com.skillstorm.munchables.beans.Recipe;
 
 @RestController
 @RequestMapping(value = "/recipe")
-
+@CrossOrigin(origins = "http://localhost:4200")
 public class RecipeController {
 
 	public static final Logger logger = Logger.getLogger(RecipeController.class);
@@ -49,11 +46,11 @@ public class RecipeController {
 		return new ResponseEntity<Recipe>(recipeRepository.findByIdRecipe(id), HttpStatus.OK);
 
 	}
-
+ 
 	// Post Request
 
 	@PostMapping(value = "/recipe", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	//@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<Recipe> create(@Valid @RequestBody Recipe recipe) {
 		return new ResponseEntity<Recipe>(recipeService.save(recipe), HttpStatus.CREATED);
 

@@ -25,10 +25,13 @@ CREATE TABLE `Steps`
 (
 	`StepId` INT NOT NULL AUTO_INCREMENT,
     `Step` TEXT(32766),
-    `RecipeId` NVARCHAR(120),
+    `RecipeId` INT,
      CONSTRAINT `PK_Steps` PRIMARY KEY  (`StepId`)
 );
 
+-- ALTER TABLE `Steps` ADD CONSTRAINT `FK_StepsRecipeId`
+--     FOREIGN KEY (`RecipeId`) REFERENCES `Recipe` (`RecipeId`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+    
 INSERT INTO `Recipe` (`RecipeId`, `RecipeName`) VALUES ('1','Cereal');
 INSERT INTO `Recipe` (`RecipeId`, `RecipeName`) VALUES ('2','Pizza');
 INSERT INTO `Recipe` (`RecipeId`, `RecipeName`) VALUES ('3','Cookies');
