@@ -1,6 +1,7 @@
 package com.skillstorm.munchables.RecipeController;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -32,39 +33,39 @@ public class RecipeController {
 	@Autowired
 	private RecipeRepository recipeRepository;
 
-	@Autowired
-	private RecipeService recipeService;
-
 	// Get requests
 	@GetMapping(value = "/recipesall", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recipe>> findAllRecipe() {
-		return new ResponseEntity<List<Recipe>>(recipeRepository.findAllRecipe(), HttpStatus.OK);
+		return new ResponseEntity<List<Recipe>>(recipeRepository.findAll(), HttpStatus.OK);
 	}
 
+	// get by ID
 	@GetMapping(value = "/recipes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Recipe> findByIdRecipe(@PathVariable int id) {
-		return new ResponseEntity<Recipe>(recipeRepository.findByIdRecipe(id), HttpStatus.OK);
-
+	public Recipe findByid(@PathVariable int id) {
+		Optional<Recipe> opt = recipeRepository.findById(id);
+		if (opt.isPresent()) {
+			return opt.get();
+		} else {
+			return new Recipe();
+		}
 	}
- 
 	// Post Request
 
 	@PostMapping(value = "/recipe", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	//@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public ResponseEntity<Recipe> create(@Valid @RequestBody Recipe recipe) {
-		return new ResponseEntity<Recipe>(recipeService.save(recipe), HttpStatus.CREATED);
-
+	// @Transactional(propagation = Propagation.REQUIRES_NEW)
+	public ResponseEntity<Recipe> save(@Valid @RequestBody Recipe recipe) {
+		ResponseEntity<Recipe> response = new ResponseEntity<Recipe>(recipeRepository.save(recipe), HttpStatus.CREATED);
+		return response;
 	}
 
 	// Put Request
 
 	@PutMapping(value = "/recipe/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Recipe> update(@Valid @RequestBody Recipe recipe, @PathVariable int id) {
-//		if (!recipeRepository.findByIdRecipe(id) || recipe.getRecipeId() == 0) {
-//			return new ResponseEntity<Recipe>(HttpStatus.BAD_REQUEST);
-//		} 
-		return new ResponseEntity<Recipe>(recipeService.save(recipe), HttpStatus.NO_CONTENT);
+		if (!recipeRepository.existsById(id) || recipe.getRecipeId() == 0) {
+			return new ResponseEntity<Recipe>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<Recipe>(recipeRepository.save(recipe), HttpStatus.NO_CONTENT);
 	}
-	
-	
+
 }

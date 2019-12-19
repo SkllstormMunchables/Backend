@@ -19,14 +19,14 @@ public class Steps {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "StepId")
+	@Column(name = "STEPID")
 	public int stepId;
 	
-	@Column(name = "step")
+	@Column(name = "STEP")
 	public String step;
 	
 	@ManyToOne
-	@JoinColumn(name = "RecipeId", insertable = false, updatable = false)
+	@JoinColumn(name = "RECIPEID", insertable = false, updatable = false)
 	@JsonBackReference(value = "recipeSteps")
 	private Recipe recipe;
 	
@@ -69,4 +69,5 @@ public class Steps {
 		return "Steps [stepId=" + stepId + ", step=" + step + "]";
 	}
 
+	
 }
