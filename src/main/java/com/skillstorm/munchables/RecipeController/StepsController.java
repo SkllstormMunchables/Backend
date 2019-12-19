@@ -32,7 +32,6 @@ import com.skillstorm.munchables.beans.Steps;
 @CrossOrigin(origins = "http://localhost:4200")
 public class StepsController {
 
-	
 	public static final Logger logger = Logger.getLogger(RecipeController.class);
 
 	@Autowired
@@ -56,20 +55,17 @@ public class StepsController {
 	}
 	// Post Request
 
-	@PostMapping(value = "/stepsadd", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/stepsadd", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
+
 	public ResponseEntity<Steps> create(@Valid @RequestBody Steps step) {
-	return new ResponseEntity<Steps>(stepsRepository.save(step), HttpStatus.CREATED);
-		
+		return new ResponseEntity<Steps>(stepsRepository.save(step), HttpStatus.CREATED);
 	}
 
 	// Put Request
 
-	@PutMapping(value = "/steps/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Steps> update(@Valid @RequestBody Steps step, @PathVariable int id) {
-		if (!stepsRepository.existsById(id) || step.getRecipeId() == 0) {
-			return new ResponseEntity<Steps>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<Steps>(stepsRepository.save(step), HttpStatus.NO_CONTENT);
+	@PutMapping(value = "/steppysteps/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Steps> update(@Valid @RequestBody Steps step, @PathVariable int stepId) {
+		return new ResponseEntity<Steps>(stepsRepository.save(step), HttpStatus.CREATED);
 	}
 }

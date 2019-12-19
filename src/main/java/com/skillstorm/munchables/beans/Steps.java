@@ -12,7 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 @Entity
 @Table(name= "Steps")
 public class Steps {
@@ -20,10 +21,10 @@ public class Steps {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "STEPID")
-	public int stepId;
+	private int stepId;
 	
 	@Column(name = "STEP")
-	public String step;
+	private String step;
 	
 	@ManyToOne
 	@JoinColumn(name = "RECIPEID", insertable = false, updatable = false)
@@ -67,6 +68,14 @@ public class Steps {
 	@Override
 	public String toString() {
 		return "Steps [stepId=" + stepId + ", step=" + step + "]";
+	}
+
+	public int getStepId() {
+		return stepId;
+	}
+
+	public void setStepId(int stepId) {
+		this.stepId = stepId;
 	}
 
 	
