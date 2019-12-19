@@ -1,4 +1,6 @@
 package com.skillstorm.munchables.RecipeController;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.jboss.logging.Logger;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,7 +27,7 @@ import com.skillstorm.munchables.beans.Ingredients;
 @CrossOrigin(origins = "http://localhost:4200")
 public class IngredientsController {
 	
-	public static final Logger logger = Logger.getLogger(IngredientsController.class);
+	public static final Logger log = Logger.getLogger(IngredientsController.class);
 
 	@Autowired
 	private RecipeRepository recipeRepository;
@@ -33,13 +36,19 @@ public class IngredientsController {
 	private RecipeService service;
 
 	// Get requests
-	
+	@GetMapping(value = "/all")
+	public ResponseEntity<List<Ingredients>> findAllRecipe() {
+		log.info("findAllRecipe");
+		return new ResponseEntity<List<Ingredients>>(recipeRepository.findAllIngredients(), HttpStatus.OK);
+	}
+
 
 	// Post Request
 
-	@PostMapping(value = "/ingredients", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<Ingredients> create(@Valid @RequestBody Ingredients ingredient) {
+		log.info("create");
 		return new ResponseEntity<Ingredients>(service.save(ingredient), HttpStatus.CREATED);
 
 	}
@@ -48,8 +57,9 @@ public class IngredientsController {
 
 	// Put Request
 
-	@PutMapping(value = "/ingredients/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Ingredients> update(@Valid @RequestBody Ingredients ingredient, @PathVariable int id) {
+		log.info("update");
 		return new ResponseEntity<Ingredients>(service.save(ingredient), HttpStatus.NO_CONTENT);
 
 	

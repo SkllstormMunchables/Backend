@@ -1,17 +1,19 @@
 package com.skillstorm.munchables.Data;
 
-
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.jboss.logging.Logger;
 import org.springframework.stereotype.Repository;
 
+import com.skillstorm.munchables.RecipeController.RecipeController;
 import com.skillstorm.munchables.beans.Ingredients;
 import com.skillstorm.munchables.beans.Measurements;
 import com.skillstorm.munchables.beans.Recipe;
+import com.skillstorm.munchables.beans.RecipeIngredients;
 import com.skillstorm.munchables.beans.Steps;
 
 @Repository
@@ -20,7 +22,8 @@ public class RecipeRepository {
 private SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
 //adding Recipes, Ingredients, measurements, and Steps
-		
+public static final Logger log = Logger.getLogger(RecipeRepository.class);
+
 	public void insert(Recipe recipe ) {
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
@@ -78,12 +81,19 @@ private SessionFactory sessionFactory = new Configuration().configure().buildSes
 	//Find all Recipe, Measurements, Steps, and Ingredients
 	
 	public List<Recipe> findAllRecipe(){
-		System.out.println("RecipeRepository: findAllRecipe");
+		log.info("findAllRecipe");
 		return sessionFactory.openSession().createQuery("from Recipe").list();
 		
 	}
 	
+	public List<RecipeIngredients> findAllRecipeIngredients(){
+		log.info("RecipeIngredients");
+		return sessionFactory.openSession().createQuery("from RecipeIngredients").list();
+		
+	}
+	
 	public List<Ingredients> findAllIngredients(){		
+		log.info("findAllIngredients");
 		return sessionFactory.openSession().createQuery("from Ingredients").list();
 		
 	}

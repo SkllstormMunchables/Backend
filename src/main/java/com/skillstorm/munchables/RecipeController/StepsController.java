@@ -34,12 +34,12 @@ public class StepsController {
 	private RecipeService service;
 
 	// get requests
-	@GetMapping(value = "/stepsall", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Steps>> findAllSteps() {
 		return new ResponseEntity<List<Steps>>(recipeRepository.findAllSteps(), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/steps/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Steps> findByIdSteps(@PathVariable int id) {
 		return new ResponseEntity<Steps>(recipeRepository.findByIdSteps(id), HttpStatus.OK);
 

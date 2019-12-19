@@ -27,7 +27,7 @@ import com.skillstorm.munchables.beans.Recipe;
 @CrossOrigin(origins = "http://localhost:4200")
 public class RecipeController {
 
-	public static final Logger logger = Logger.getLogger(RecipeController.class);
+	public static final Logger log = Logger.getLogger(RecipeController.class);
 
 	@Autowired
 	private RecipeRepository recipeRepository;
@@ -36,12 +36,12 @@ public class RecipeController {
 	private RecipeService recipeService;
 
 	// Get requests
-	@GetMapping(value = "/recipesall", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Recipe>> findAllRecipe() {
 		return new ResponseEntity<List<Recipe>>(recipeRepository.findAllRecipe(), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/recipes/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/find/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Recipe> findByIdRecipe(@PathVariable int id) {
 		return new ResponseEntity<Recipe>(recipeRepository.findByIdRecipe(id), HttpStatus.OK);
 
@@ -49,7 +49,7 @@ public class RecipeController {
  
 	// Post Request
 
-	@PostMapping(value = "/recipe", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	//@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<Recipe> create(@Valid @RequestBody Recipe recipe) {
 		return new ResponseEntity<Recipe>(recipeService.save(recipe), HttpStatus.CREATED);
@@ -58,8 +58,9 @@ public class RecipeController {
 
 	// Put Request
 
-	@PutMapping(value = "/recipe/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Recipe> update(@Valid @RequestBody Recipe recipe, @PathVariable int id) {
+		log.info("update: " + recipe);
 //		if (!recipeRepository.findByIdRecipe(id) || recipe.getRecipeId() == 0) {
 //			return new ResponseEntity<Recipe>(HttpStatus.BAD_REQUEST);
 //		} 

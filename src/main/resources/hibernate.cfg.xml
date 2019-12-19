@@ -16,7 +16,7 @@
 	<mapping class="com.skillstorm.munchables.beans.Measurements"/>
 	<mapping class="com.skillstorm.munchables.beans.Recipe"/>
 	<mapping class="com.skillstorm.munchables.beans.Steps"/>
-	<mapping class="com.skillstorm.munchables.beans.JoinTable"/>
+	<mapping class="com.skillstorm.munchables.beans.RecipeIngredients"/>
 	</session-factory>
 </hibernate-configuration>
 
